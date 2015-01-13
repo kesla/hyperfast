@@ -68,9 +68,12 @@ function hyperfast (html, params) {
                 });
             }
             else if (val._html) {
-                var children = htmlparser.parseDOM(val._html)
+                while(elem.children && elem.children.length > 0) {
+                    domutils.removeElement(elem.children[0]);
+                }
+                var children = htmlparser.parseDOM(val._html);
                 children.forEach(function (child) {
-                    domutils.appendChild(elem, child)
+                    domutils.appendChild(elem, child);
                 });
 
             }
