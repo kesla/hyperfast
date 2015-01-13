@@ -15,6 +15,20 @@ test('add attr', function (t) {
     );
 });
 
+test('preprend attr', function (t) {
+    t.plan(1);
+
+    var res = hyperglue(html, { 'img.a': { class: { prepend: 'b '} } }).innerHTML;
+    t.equal(res, '<img class="b a" />');
+});
+
+test('append attr', function (t) {
+    t.plan(1);
+
+    var res = hyperglue(html, { 'img.a': { class: { append: ' b'} } }).innerHTML;
+    t.equal(res, '<img class="a b" />');
+});
+
 test('remove attr', function (t) {
     t.plan(1);
     var res = hyperglue(html, { 'img.a': { src: undefined } }).innerHTML;

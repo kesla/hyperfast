@@ -51,7 +51,15 @@ function hyperfast (html, params) {
                 if (val[k] === undefined) {
                     delete elem.attribs[k];
                 }
-                else elem.attribs[k] = val[k];
+                else {
+                    if (val[k] && val[k].prepend) {
+                        elem.attribs[k] = val[k].prepend + elem.attribs[k];
+                    } else if (val[k] && val[k].append) {
+                        elem.attribs[k] = elem.attribs[k] + val[k].append;
+                    } else {
+                        elem.attribs[k] = val[k];
+                    }
+                }
             });
             if (val._text) {
                 domutils.appendChild(elem, {
