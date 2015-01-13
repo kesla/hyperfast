@@ -9,8 +9,8 @@ test('add attr', function (t) {
     var res = hyperglue(html, { 'img.a': { src: '/a.png' } }).innerHTML;
     
     t.ok(
-        res === '<img class="a" src="/a.png">'
-        || res === '<img src="/a.png" class="a">',
+        res === '<img class="a" src="/a.png" />'
+        || res === '<img src="/a.png" class="a" />',
         'has both class and src: ' + res
     );
 });
@@ -18,5 +18,5 @@ test('add attr', function (t) {
 test('remove attr', function (t) {
     t.plan(1);
     var res = hyperglue(html, { 'img.a': { src: undefined } }).innerHTML;
-    t.equal(res, '<img class="a">');
+    t.equal(res, '<img class="a" />');
 });
