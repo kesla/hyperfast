@@ -1,11 +1,11 @@
-# hyperglue
+# hyperfast
 
 update html elements by mapping query selectors to attributes, text, and
 hypertext
 
-[![browser support](http://ci.testling.com/substack/hyperglue.png)](http://ci.testling.com/substack/hyperglue)
+It's a fork of [hyperglue](https://github.com/substack/hyperglue), but about 10x faster.
 
-[![build status](https://secure.travis-ci.org/substack/hyperglue.png)](http://travis-ci.org/substack/hyperglue)
+[![build status](https://secure.travis-ci.org/kesla/hyperfast.png)](http://travis-ci.org/kesla/hyperfast)
 
 This module works in both node and the browser.
 
@@ -14,13 +14,13 @@ This module works in both node and the browser.
 ## in the browser
 
 ``` js
-var hyperglue = require('hyperglue');
+var hyperfast = require('hyperfast');
 var fs = require('fs');
 var html = fs.readFileSync(__dirname + '/article.html');
 
 function createArticle (doc) {
     var name = doc.title.replace(/[^A-Za-z0-9]+/g,'_');
-    return hyperglue(html, {
+    return hyperfast(html, {
         '.title a': {
             name: name,
             href: '#' + name,
@@ -69,13 +69,13 @@ Then just do:
 ## in node
 
 ``` js
-var hyperglue = require('hyperglue');
+var hyperfast = require('hyperfast');
 var fs = require('fs');
 var html = fs.readFileSync(__dirname + '/article.html');
 
 function createArticle (doc) {
     var name = doc.title.replace(/[^A-Za-z0-9]+/g,'_');
-    return hyperglue(html, {
+    return hyperfast(html, {
         '.title a': {
             name: name,
             href: '#' + name,
@@ -112,7 +112,7 @@ console.log(createArticle({
 You can also duplicate existing elements in order to render arrays of results:
 
 ``` js
-var hyperglue = require('hyperglue');
+var hyperfast = require('hyperfast');
 
 var html = [
     '<div id="rows">',
@@ -124,7 +124,7 @@ var html = [
     '</div>'
 ].join('\n');
 
-console.log(hyperglue(html, {
+console.log(hyperfast(html, {
     '.row': [
         { '.name': 'T-REX', '.message': 'RAWR' },
         { '.name': 'robot', '.message': 'beep boop' },
@@ -156,10 +156,10 @@ output:
 # methods
 
 ``` js
-var hyperglue = require('hyperglue')
+var hyperfast = require('hyperfast')
 ```
 
-## hyperglue(src, updates)
+## hyperfast(src, updates)
 
 Return an html element from the source string or element `src` with `updates`
 applied to it.
@@ -179,7 +179,7 @@ content of the matching elements to that value.
 When the target values are html elements, replace the inner content at the
 selected element with a clone of the value.
 
-For target values of arrays, recursively apply `hyperglue(node.cloneNode(),
+For target values of arrays, recursively apply `hyperfast(node.cloneNode(),
 value)` for each matching element in the array and then remove the original
 node. This feature makes rendering arrays of content super simple.
 
@@ -194,7 +194,7 @@ selector elements with a clone of the `'_html'` value.
 With [npm](https://npmjs.org) do:
 
 ```
-npm install hyperglue
+npm install hyperfast
 ```
 
 # license
