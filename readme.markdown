@@ -5,7 +5,7 @@ hypertext
 
 It's a fork of [hyperglue](https://github.com/substack/hyperglue), but about 10x faster.
 
-[![build status](https://secure.travis-ci.org/kesla/hyperfast.png)](http://travis-ci.org/kesla/hyperfast)
+[![build status](https://secure.travis-ci.org/micnews/hyperfast.png)](http://travis-ci.org/micnews/hyperfast)
 
 # example
 

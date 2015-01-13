@@ -17,9 +17,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kesla/hyperfast.git"
+    "url": "git://github.com/micnews/hyperfast.git"
   },
-  "homepage": "https://github.com/kesla/hyperfast",
+  "homepage": "https://github.com/micnews/hyperfast",
   "keywords": [
     "browser",
     "html",
