@@ -49,10 +49,9 @@ function hyperfast (html, params) {
             Object.keys(val).forEach(function (k) {
                 if (k === '_text' || k === '_html') return;
                 if (val[k] === undefined) {
-                    // elem.removeAttribute(k);
                     delete elem.attribs[k];
                 }
-                else elem.attribs[k] = val[k]; //elem.setAttribute(k, val[k]);
+                else elem.attribs[k] = val[k];
             });
             if (val._text) {
                 domutils.appendChild(elem, {
