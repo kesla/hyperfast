@@ -62,6 +62,9 @@ function hyperfast (html, params) {
                 }
             });
             if (val._text) {
+                while(elem.children && elem.children.length > 0) {
+                    domutils.removeElement(elem.children[0]);
+                }
                 domutils.appendChild(elem, {
                     data: ent.encode(val._text),
                     type: 'text'

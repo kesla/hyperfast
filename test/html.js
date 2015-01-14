@@ -3,6 +3,13 @@ var hyperglue = require('../');
 
 var html = '<div class="a"><i class="b">beep</i></div>';
 
+test('_text', function (t) {
+    t.plan(1);
+
+    var res = hyperglue(html, { 'div.a': { _text: 'boop' } }).innerHTML;
+    t.equal(res, '<div class="a">boop</div>')
+})
+
 test('_html', function (t) {
     t.plan(1);
     
