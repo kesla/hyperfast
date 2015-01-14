@@ -5,7 +5,10 @@ var domutils = require('domutils');
 
 module.exports = hyperfast;
 function hyperfast (html, params) {
-    var elems = htmlparser.parseDOM(html);
+    // wrap elements so that there's always a root element
+    // available, e.g. node.parent is never null
+    var wrapped = htmlparser.parseDOM('<wrap>' + html + '</wrap>');
+    var elems = wrapped[0].children;
 
     Object.keys(params).forEach(function (key) {
         var val = params[key];
