@@ -55,10 +55,16 @@ function hyperfast (html, params) {
                     delete elem.attribs[k];
                 }
                 else {
+                    if (val[k] && val[k].append !== undefined || val[k].prepend !== undefined) {
+
                     if (val[k] && val[k].prepend) {
-                        elem.attribs[k] = val[k].prepend + elem.attribs[k];
-                    } else if (val[k] && val[k].append) {
-                        elem.attribs[k] = elem.attribs[k] + val[k].append;
+                        elem.attribs[k] = val[k].prepend + (elem.attribs[k] || '');
+                    }
+
+                    if (val[k] && val[k].append) {
+                        elem.attribs[k] = (elem.attribs[k] || '') + val[k].append;
+                    }
+
                     } else {
                         elem.attribs[k] = val[k];
                     }
