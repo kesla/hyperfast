@@ -50,7 +50,7 @@ function hyperfast (html, params) {
         }
         else {
             Object.keys(val).forEach(function (k) {
-                if (k === '_text' || k === '_html' || k === '_appendHtml' || k === '_prependHtml') return;
+                if (k === '_text' || k === '_html' || k === '_append' || k === '_appendText' || k === '_appendHtml' || k === '_prependHtml') return;
                 if (val[k] === undefined) {
                     delete elem.attribs[k];
                 }
@@ -89,6 +89,12 @@ function hyperfast (html, params) {
                     domutils.appendChild(elem, child);
                 });
 
+            }
+            else if (val._appendText || val._append) {
+                var children = htmlparser.parseDOM(ent.encode(val._appendText || val._append));
+                children.forEach(function (child) {
+                    domutils.appendChild(elem, child);
+                })
             }
             else if (val._prependHtml) {
                 var children = htmlparser.parseDOM(val._prependHtml);
