@@ -50,7 +50,15 @@ function hyperfast (html, params) {
         }
         else {
             Object.keys(val).forEach(function (k) {
-                if (k === '_text' || k === '_html' || k === '_append' || k === '_appendText' || k === '_appendHtml' || k === '_prependHtml') return;
+                if (
+                    k === '_text' ||
+                    k === '_html' ||
+                    k === '_append' ||
+                    k === '_appendText' ||
+                    k === '_appendHtml' ||
+                    k === '_prepend' ||
+                    k === '_prependText' ||
+                    k === '_prependHtml') return;
                 if (val[k] === undefined) {
                     delete elem.attribs[k];
                 }
@@ -104,6 +112,16 @@ function hyperfast (html, params) {
             }
             else if (val._prependHtml) {
                 var children = htmlparser.parseDOM(val._prependHtml);
+                children.reverse().forEach(function (child) {
+                    if (!elem.children || elem.children.length === 0) {
+                        domutils.appendChild(elem, child);
+                    } else {
+                        domutils.prepend(elem.children[0], child);
+                    }
+                });
+            }
+            else if (val._prependText || val._prepend) {
+                var children = htmlparser.parseDOM(ent.encode(val._prependText || val._prepend));
                 children.reverse().forEach(function (child) {
                     if (!elem.children || elem.children.length === 0) {
                         domutils.appendChild(elem, child);
