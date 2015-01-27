@@ -15,6 +15,7 @@ function hyperfast (html, params) {
         if (!val) return;
         if (typeof val === 'string') val = { _html: val };
         else if (Buffer.isBuffer(val)) val = { _html: val.toString('utf8') };
+        else if (typeof val === 'function') val = { _iterator: val }
         else if (typeof val !== 'object') val = { _html: String(val) };
 
         if (Buffer.isBuffer(val._text)) val._text = val._text.toString('utf8');
@@ -58,7 +59,8 @@ function hyperfast (html, params) {
                     k === '_appendHtml' ||
                     k === '_prepend' ||
                     k === '_prependText' ||
-                    k === '_prependHtml') return;
+                    k === '_prependHtml' ||
+                    k === '_iterator') return;
                 if (val[k] === undefined) {
                     delete elem.attribs[k];
                 }
@@ -95,7 +97,6 @@ function hyperfast (html, params) {
                 children.forEach(function (child) {
                     domutils.appendChild(elem, child);
                 });
-
             }
             else if (val._appendHtml) {
                 var children = htmlparser.parseDOM(val._appendHtml);
@@ -128,6 +129,18 @@ function hyperfast (html, params) {
                     } else {
                         domutils.prepend(elem.children[0], child);
                     }
+                });
+            }
+            else if (val._iterator) {
+                var newHtml = val._iterator(elem.children.map(function (child) {
+                    return domutils.getOuterHTML(child)
+                }).join(''))
+                var newChildren = htmlparser.parseDOM(newHtml);
+                while(elem.children && elem.children.length > 0) {
+                    domutils.removeElement(elem.children[0]);
+                }
+                newChildren.forEach(function (child) {
+                    domutils.appendChild(elem, child);
                 });
             }
         }
