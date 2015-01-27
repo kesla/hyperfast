@@ -1,6 +1,6 @@
 {
   "name": "hyperfast",
-  "version": "1.6.2",
+  "version": "2.0.0",
   "description": "update html elements by mapping query selectors to attributes, text, and hypertext. Fork of hyperglue",
   "main": "index.js",
   "dependencies": {
