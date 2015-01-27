@@ -13,9 +13,9 @@ function hyperfast (html, params) {
     Object.keys(params).forEach(function (key) {
         var val = params[key];
         if (!val) return;
-        if (typeof val === 'string') val = { _text: val };
-        else if (Buffer.isBuffer(val)) val = { _text: val.toString('utf8') };
-        else if (typeof val !== 'object') val = { _text: String(val) };
+        if (typeof val === 'string') val = { _html: val };
+        else if (Buffer.isBuffer(val)) val = { _html: val.toString('utf8') };
+        else if (typeof val !== 'object') val = { _html: String(val) };
 
         if (Buffer.isBuffer(val._text)) val._text = val._text.toString('utf8');
         if (key === ':first') {
