@@ -10,6 +10,7 @@
     "htmlparser2": "^3.8.2"
   },
   "devDependencies": {
+    "semistandard": "^7.0.2",
     "tape": "^3.0.0"
   },
   "scripts": {
