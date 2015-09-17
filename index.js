@@ -15,6 +15,7 @@ function onDom (elems, params) {
     elems.forEach(function (elem) {
       domutils.appendChild(wrapper, elem);
     });
+    console.log(wrapper.children.length);
   }
 
   Object.keys(params).forEach(function (key) {
@@ -40,9 +41,9 @@ function onDom (elems, params) {
 
   // unwrap dom, if needed
   if (wrapper) {
-    elems.forEach(function (elem) {
-      elem.parent = null;
-    });
+    // elems.forEach(function (elem) {
+    //   elem.parent = null;
+    // });
   }
 
   return elems;
@@ -145,7 +146,7 @@ function onDom (elems, params) {
 }
 
 function hyperfast (html, params) {
-  var dom = htmlparser.parseDOM(html);
+  var dom = htmlparser.parseDOM('<wrap>' + html + '</wrap>')[0].children;
 
   onDom(dom, params);
 
