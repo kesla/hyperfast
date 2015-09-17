@@ -4,11 +4,18 @@ var CSSselect = require('css-select');
 var domutils = require('domutils');
 
 module.exports = hyperfast;
-function hyperfast (html, params) {
+module.exports.onDom = onDom;
+
+function onDom (elems, params) {
   // wrap elements so that there's always a root element
   // available, e.g. node.parent is never null
-  var wrapped = htmlparser.parseDOM('<wrap>' + html + '</wrap>');
-  var elems = wrapped[0].children;
+  var wrapper;
+  if (!elems[0].parent) {
+    wrapper = htmlparser.parseDOM('<wrap></wrap')[0];
+    elems.forEach(function (elem) {
+      domutils.appendChild(wrapper, elem);
+    });
+  }
 
   Object.keys(params).forEach(function (key) {
     var val = params[key];
@@ -31,14 +38,14 @@ function hyperfast (html, params) {
     }
   });
 
-  var body = elems.map(function (elm) {
-    return domutils.getOuterHTML(elm);
-  }).join('');
+  // unwrap dom, if needed
+  if (wrapper) {
+    elems.forEach(function (elem) {
+      elem.parent = null;
+    });
+  }
 
-  return {
-    outerHTML: body,
-    innerHTML: body
-  };
+  return elems;
 
   function each (elem, val) {
     if (Array.isArray(val)) {
@@ -135,4 +142,19 @@ function hyperfast (html, params) {
       }
     }
   }
+}
+
+function hyperfast (html, params) {
+  var dom = htmlparser.parseDOM(html);
+
+  onDom(dom, params);
+
+  var body = dom.map(function (elm) {
+    return domutils.getOuterHTML(elm);
+  }).join('');
+
+  return {
+    outerHTML: body,
+    innerHTML: body
+  };
 }
