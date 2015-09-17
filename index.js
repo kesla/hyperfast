@@ -1,6 +1,6 @@
 var ent = require('ent');
 var htmlparser = require('htmlparser2');
-var CSSselect = require('CSSselect');
+var CSSselect = require('css-select');
 var domutils = require('domutils');
 
 module.exports = hyperfast;
@@ -20,12 +20,12 @@ function hyperfast (html, params) {
 
     if (Buffer.isBuffer(val._text)) val._text = val._text.toString('utf8');
     if (key === ':first') {
-      each(CSSselect.selectOne('*', elems), val);
+      each(elems[0], val);
     } else if (/:first$/.test(key)) {
       var k = key.replace(/:first$/, '');
-      each(CSSselect.selectOne(k, elems), val);
+      each(CSSselect.selectOne(CSSselect.compile(k), elems), val);
     } else {
-      CSSselect(key, elems).forEach(function (elem) {
+      CSSselect(CSSselect.compile(key), elems).forEach(function (elem) {
         each(elem, val);
       });
     }
