@@ -145,13 +145,13 @@ function onDom (elems, params) {
   }
 }
 
-function hyperfast (html, params) {
+function hyperfast (html, params, domOptions) {
   var dom = htmlparser.parseDOM('<wrap>' + html + '</wrap>')[0].children;
 
   onDom(dom, params);
 
   var body = dom.map(function (elm) {
-    return domutils.getOuterHTML(elm);
+    return domutils.getOuterHTML(elm, domOptions);
   }).join('');
 
   return {
